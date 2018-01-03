@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
+
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -10,7 +11,6 @@ db.once('open', function() {
 
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
-  repoId: Number,
   repoName: String,
   repoOwner: String,
   repoWatched: Number
@@ -26,7 +26,6 @@ let save = (repo) => {
 
   var newRepo = 
     new Repo({
-    repoId: repo.id,
     repoName: repo.name,
     repoOwner: repo.owner.login,
     repoWatched: repo.watchers
@@ -42,4 +41,7 @@ let save = (repo) => {
 
 
 
+
+
+module.exports.Repo = Repo
 module.exports.save = save;

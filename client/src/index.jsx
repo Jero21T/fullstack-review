@@ -11,6 +11,23 @@ class App extends React.Component {
       repos: []
     }
 
+  // this.fetchRepos = this.fetchRepos.bind(this);
+  this.fetchRepos = this.fetchRepos.bind(this)();
+
+  }
+
+  fetchRepos() {
+    $.ajax({
+      url: 'http://localhost:1128/repos',
+      type: 'GET',
+      success: (data) => {
+        //to be done
+      },
+      dataType: 'json',
+      error: function(err) {
+        console.error(err);
+      }
+    });
   }
 
   search (term) {
@@ -30,6 +47,7 @@ class App extends React.Component {
     })
 
   }
+
 
   render () {
     return (<div>
