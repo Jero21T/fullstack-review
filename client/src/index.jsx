@@ -12,7 +12,7 @@ class App extends React.Component {
     }
 
   // this.fetchRepos = this.fetchRepos.bind(this);
-  this.fetchRepos = this.fetchRepos.bind(this)();
+  // this.fetchRepos = this.fetchRepos.bind(this)();
 
   }
 
@@ -21,7 +21,8 @@ class App extends React.Component {
       url: 'http://localhost:1128/repos',
       type: 'GET',
       success: (data) => {
-        //to be done
+        this.setState({repos: data})
+        console.log(data)
       },
       dataType: 'json',
       error: function(err) {
@@ -48,12 +49,22 @@ class App extends React.Component {
 
   }
 
+  handleRepoClick (event){
+    // console.log(this.state.repos)
+    // console.log(event.target.innerText)
+    this.state.repos.forEach((repo)=>{
+      if (repo.repoName === event.target.innerText){
+        window.open(repo.userUrl, "_blank");
+      }
+    })
+  }
+
 
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
-      <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos} handleRepoClick={this.handleRepoClick.bind(this)} />
+      <Search onSearch={this.search.bind(this)} fetch={this.fetchRepos.bind(this)}/>
     </div>)
   }
 }

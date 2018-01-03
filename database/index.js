@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
 
+
 var db = mongoose.connection;
+
+db.dropDatabase(); //not sure
+
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('we are connected')
@@ -13,7 +17,8 @@ let repoSchema = mongoose.Schema({
   // TODO: your schema here!
   repoName: String,
   repoOwner: String,
-  repoWatched: Number
+  repoWatched: Number,
+  userUrl: String
 
 });
 
@@ -28,7 +33,8 @@ let save = (repo) => {
     new Repo({
     repoName: repo.name,
     repoOwner: repo.owner.login,
-    repoWatched: repo.watchers
+    repoWatched: repo.watchers,
+    userUrl: repo.owner.html_url
   });
 
   newRepo.save((err)=>{
