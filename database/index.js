@@ -32,14 +32,14 @@ let save = (repo) => {
     repoWatched: repo.watchers
   });
 
-  newRepo.save((err,callback) => {
-    if (err){
-      callback(err)
-    }else{
-      console.log(newRepo.repoName)
+  newRepo.save((err)=>{
+    if(err){
+      console.error(err);
+      return
     }
-  })
-
+})
 }
+
+
 
 module.exports.save = save;

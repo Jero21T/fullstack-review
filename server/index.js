@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const gitHub = require('../helpers/github.js')
+const dbhandlers = require('../database/index.js')
 
 let app = express();
 
@@ -15,7 +16,17 @@ app.post('/repos', function (req, res) {
   // save the repo information in the database
  let userName = req.body.term;
 
- gitHub.getReposByUsername(userName);
+ gitHub.getReposByUsername(userName, (err,data) => {
+ 	if (err){
+ 		throw err
+ 	}else{
+ 		data.forEach((repo)=>{
+          dbhandlers.save(repo)
+ 		})
+ 	}
+
+ });
+
 
 
   // console.log(userName)
