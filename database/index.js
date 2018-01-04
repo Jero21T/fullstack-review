@@ -5,12 +5,11 @@ mongoose.connect('mongodb://localhost/fetcher');
 
 var db = mongoose.connection;
 
-db.dropDatabase(); //not sure
-
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('we are connected')
 });
+
 
 
 let repoSchema = mongoose.Schema({
@@ -22,12 +21,16 @@ let repoSchema = mongoose.Schema({
 
 });
 
+repoSchema.index({'repoName':1},{unique:true})
+
 
 
 let Repo = mongoose.model('Repo', repoSchema);
 
 
+
 let save = (repo) => {
+
 
   var newRepo = 
     new Repo({
@@ -37,6 +40,8 @@ let save = (repo) => {
     userUrl: repo.owner.html_url
   });
 
+  
+  
   newRepo.save((err)=>{
     if(err){
       console.error(err);
@@ -45,6 +50,7 @@ let save = (repo) => {
       console.log('Data is saved to Database...')
     }
 })
+
 }
 
 
