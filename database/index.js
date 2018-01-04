@@ -5,7 +5,7 @@ mongoose.connect('mongodb://localhost/fetcher');
 
 var db = mongoose.connection;
 
-// db.dropDatabase(); //not sure
+db.dropDatabase(); //not sure
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -41,6 +41,8 @@ let save = (repo) => {
     if(err){
       console.error(err);
       return
+    }else{
+      console.log('Data is saved to Database...')
     }
 })
 }

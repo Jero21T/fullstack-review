@@ -20,49 +20,35 @@ app.post('/repos', function (req, res) {
  let userName = req.body.term;
 
  gitHub.getReposByUsername(userName, (err,data) => {
- 	if (err){
- 		throw err
- 	}else{
- 		data.forEach((repo)=>{
-          dbhandlers.save(repo)
- 		})
-    res.send()
+    if (err){
+ 	    throw err
+ 	  }else{
+ 		  data.forEach((repo)=>{
+      dbhandlers.save(repo)
+ 		});
+    res.send();
  	}
-
-
  });
-
-
-
-  // console.log(userName)
-
 });
 
 app.get('/repos', function (req, res) {
-  // TODO - your code here!
   
 var url = 'mongodb://localhost/fetcher';
 
-MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  dbhandlers.Repo.find({}, function(err, result) {
+  MongoClient.connect(url, function(err, db) {
     if (err) throw err;
-  // console.log(result[result.length-1])
-    var resultsSorted = result.sort((a,b) =>{
-      return Number(b.repoWatched) - Number(a.repoWatched)
-    })
+    dbhandlers.Repo.find({}, function(err, result) {
+      if (err) throw err;
+      var resultsSorted = result.sort((a,b) =>{
+        return Number(b.repoWatched) - Number(a.repoWatched)
+      });
 
-    res.send(resultsSorted.slice(0,25))
-    db.close();
-  });
-  });
+  res.send(resultsSorted.slice(0,25));
 
+  db.close();
+    });
+  });
 });
-
-
-
-
-
 
 let port = 1128;
 

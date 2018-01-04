@@ -1,7 +1,6 @@
 import React from 'react'
 
-const RepoEntry = (props)=>(
-
+const RepoEntry = (props) => (
 <li onClick={props.handleRepoClick}>{props.repo.repoName}</li>
 )
 

@@ -12,7 +12,6 @@ class App extends React.Component {
     }
 
   this.fetchRepos = this.fetchRepos.bind(this);
-  // this.fetchRepos = this.fetchRepos.bind(this)();
 
   }
 
