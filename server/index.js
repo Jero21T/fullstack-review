@@ -47,7 +47,7 @@ MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   dbhandlers.Repo.find({}, function(err, result) {
     if (err) throw err;
-  console.log(result[result.length-1])
+  // console.log(result[result.length-1])
     var resultsSorted = result.sort((a,b) =>{
       return Number(b.repoWatched) - Number(a.repoWatched)
     })

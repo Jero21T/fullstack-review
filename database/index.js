@@ -5,7 +5,7 @@ mongoose.connect('mongodb://localhost/fetcher');
 
 var db = mongoose.connection;
 
-db.dropDatabase(); //not sure
+// db.dropDatabase(); //not sure
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {

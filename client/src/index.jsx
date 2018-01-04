@@ -11,7 +11,7 @@ class App extends React.Component {
       repos: []
     }
 
-  // this.fetchRepos = this.fetchRepos.bind(this);
+  this.fetchRepos = this.fetchRepos.bind(this);
   // this.fetchRepos = this.fetchRepos.bind(this)();
 
   }
@@ -22,7 +22,6 @@ class App extends React.Component {
       type: 'GET',
       success: (data) => {
         this.setState({repos: data})
-        console.log(data)
       },
       dataType: 'json',
       error: function(err) {
@@ -57,6 +56,10 @@ class App extends React.Component {
         window.open(repo.userUrl, "_blank");
       }
     })
+  }
+
+  componentWillMount() {
+    this.fetchRepos();
   }
 
 
